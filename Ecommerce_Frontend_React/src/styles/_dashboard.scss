@@ -1,0 +1,242 @@
+.dashboard {
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+
+  .bar {
+    height: 4.25rem;
+    @include flex(row, unset, center, 0.75rem);
+    padding: 0 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    width: 100%;
+    box-sizing: border-box;
+
+    .admin-search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      color: #64748b;
+      font-size: 1.1rem;
+      padding: 0.4rem;
+      border-radius: 6px;
+      transition: color 0.15s ease;
+
+      &:hover {
+        color: #2563eb;
+      }
+    }
+
+    > input {
+      margin-right: auto;
+      @include inputStyle(100%, 0.8rem 0);
+      outline: none;
+      border: none;
+      font-size: 0.95rem;
+    }
+
+    > svg {
+      font-size: 1.2rem;
+      opacity: 0.7;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    > img {
+      @include square(2.2rem);
+      border-radius: 50%;
+    }
+
+    @media (max-width: 768px) {
+      height: auto;
+      min-height: 3.8rem;
+      padding: 0.6rem 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      > input {
+        order: 3;
+        width: 100% !important;
+        margin-right: 0;
+        background: #f1f5f9;
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem !important;
+      }
+    }
+  }
+
+  .widget-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    .widget {
+      width: 100%;
+      min-width: 0;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+      padding: 1.75rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-sizing: border-box;
+      @include flex(row, space-between, stretch, 0);
+
+      .widget-info {
+        > p {
+          opacity: 0.7;
+          font-size: 0.8rem;
+        }
+        > h4 {
+          font-size: 1.5rem;
+        }
+        > span {
+          @include flex(row, unset, center, 0.2rem);
+        }
+      }
+
+      .widget-circle {
+        position: relative;
+        @include square(5rem);
+        border-radius: 50%;
+        flex: none;
+        display: grid;
+        place-items: center;
+        background-color: aquamarine;
+        &::before {
+          content: "";
+          position: absolute;
+          @include square(4rem);
+          background-color: white;
+          border-radius: 100%;
+        }
+        span {
+          position: relative;
+        }
+      }
+    }
+  }
+
+  .graph-container {
+    @include flex(row, unset, unset, 2rem);
+    padding: 0 1.5rem 2rem;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+
+    > div {
+      background-color: white;
+      border-radius: 10px;
+    }
+
+    .revenue-chart {
+      width: 100%;
+      flex: 1;
+      min-width: 300px;
+      padding: 1rem 2rem;
+      box-sizing: border-box;
+
+      > h2 {
+        @include heading;
+        margin: 1rem 0 2rem 0.25rem;
+        text-align: center;
+      }
+    }
+
+    .dashboard-categories {
+      width: 100%;
+      max-width: 18rem;
+      @include flex(column, center, unset, 0);
+      padding-bottom: 2rem;
+      > h2 {
+        @include heading;
+        margin: 1.5rem 0 2rem 0;
+        text-align: center;
+      }
+
+      > div {
+        overflow-y: auto;
+        height: 40rem;
+        padding-left: 0.5rem;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .category-item {
+        width: 100%;
+        @include flex(row, space-between);
+        padding: 1rem;
+        > h5 {
+          letter-spacing: 1px;
+          font-weight: 300;
+        }
+        > div {
+          margin-left: auto;
+          width: 6rem;
+          background-color: rgb(217, 217, 217);
+          border-radius: 20px;
+          height: 0.5rem;
+          flex: none;
+          > div {
+            border-radius: 20px;
+            height: 100%;
+          }
+        }
+        > span {
+          font-size: 0.8rem;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .transaction-container {
+    display: flex;
+    gap: 2rem;
+    padding: 0 1.5rem 2rem;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 28rem;
+
+    > div {
+      background-color: white;
+      box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.132);
+      border-radius: 10px;
+    }
+    .gender-chart {
+      width: 100%;
+      max-width: 20rem;
+      padding: 1rem;
+      position: relative;
+      > h2 {
+        text-align: center;
+        margin: 1.5rem 0 2rem 0;
+        @include heading;
+      }
+      > p {
+        @include posCenter;
+        font-size: 2rem;
+        color: rgba(0, 0, 0, 0.634);
+      }
+    }
+
+    .transaction-box {
+      width: 100%;
+      padding: 1rem;
+      overflow-x: auto;
+      > h2 {
+        margin: 1.5rem 0 0 0;
+        @include heading;
+      }
+    }
+  }
+}

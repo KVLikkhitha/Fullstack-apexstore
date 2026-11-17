@@ -1,0 +1,36 @@
+{
+  "name": "ecommerce_backend",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "tsc -w"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.10.2",
+    "morgan": "^1.12.1",
+    "multer": "^2.4.0",
+    "node-cache": "^5.1.2",
+    "uuid": "^14.0.2",
+    "validator": "^13.15.35"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/morgan": "^1.9.10",
+    "@types/multer": "^2.3.0",
+    "@types/node": "^26.6.2",
+    "@types/uuid": "^10.0.0",
+    "@types/validator": "^13.15.10",
+    "typescript": "^7.0.2"
+  }
+}

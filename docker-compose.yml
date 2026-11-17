@@ -1,0 +1,70 @@
+services:
+  # 1. MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: apex_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=Ecommerce_2026
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - apex_network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Express Node.js Backend API
+  backend:
+    build:
+      context: ./Ecommerce_Backend
+      dockerfile: Dockerfile
+    container_name: apex_backend
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - MONGO_URI=mongodb://mongodb:27017/Ecommerce_2026
+      - NODE_ENV=production
+      - CLIENT_URL=http://localhost,http://localhost:80
+    volumes:
+      - backend_uploads:/app/uploads
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - apex_network
+
+  # 3. React Vite Frontend + Nginx Reverse Proxy
+  frontend:
+    build:
+      context: ./Ecommerce_Frontend_React
+      dockerfile: Dockerfile
+    container_name: apex_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - apex_network
+
+networks:
+  apex_network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  backend_uploads:
